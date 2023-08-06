@@ -1,0 +1,33 @@
+The following is the implemetation method which we used for the paper:
+Personal Authentication based on 3D Finger Geometry.
+
+description:
+in previous methods, entire image is used for feature extraction...
+in this paper 3d geometry points of the segmented finger are extracted
+and feature points are extracted from these points. the exact
+algorithm specified in the basepaper is implemented, except
+for the method of capturing the images. no problems about this
+because the proposed algorithm is invariant of the camera calibration.
+the image is passed through four stages before extracting feature points.
+
+in the first stage, the input image is thresholded in order to
+segment the finger from the background. then this image is passed
+to second stage, where finger boundary points are extracted by
+linear edge detection. then this image is passed to third stage,
+which is simple enlargement. that is, the finger boundary image
+is placed inside a large image in this stage. this is done in order
+to find/select the geometry points from the boundary points of the finger.
+in other words the image is enlarged so that the entire edge-image
+is fit in the center and geometry-lines can be projected from outer.
+
+using this enlarged image as input, the geometry points of the finger
+are found. for this, a large circle is drawn around the finger in the
+enlarged image and from each circle point (360 degree) one line is
+drawn towards the center and the point (x,y) in that line where first
+edge pixel of the finger is found is stored.
+
+during recognition, feature vector for test-image is found and compared
+with all feature vectors of training images. euclidean-distance between
+test vector and training vectors are found and the matched image is
+the image with smallest distance. accuracy is 100-r where r is the 
+ratio between smallest and maximum distance.
